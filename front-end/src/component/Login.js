@@ -19,8 +19,9 @@ const Login = () => {
         })
         result=await result.json()
         
-      if(result.email){
-       localStorage.setItem('user',JSON.stringify(result))
+      if(result.acess_token){
+       localStorage.setItem('user',JSON.stringify(result.user))
+       localStorage.setItem('token',JSON.stringify(result.acess_token))
        setError(false)
        navigate('/')
 

@@ -1,152 +1,37 @@
-.NavLink {
-  background-color: #1e1e2f;
-  padding: 15px 40px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-bottom: 2px solid #00b894;
-  border-radius: 0 0 8px 8px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-
-  display: flex;
- /* Pushes child div to right */
-  align-items: center;
-}
-
-.nav-right {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.nav-right ul {
-  display: flex;
-  gap: 30px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  align-items: center;
-}
-.NavLink ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.nav-container {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.nav-left {
-  display: flex;
-  gap: 30px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  align-items: center;
-}
-
-.NavLink li {
-  display: inline-block;
-}
-
-.NavLink a {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  padding: 10px 14px;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.NavLink a:hover {
-  background-color: #00b894; /* Teal hover */
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 184, 148, 0.4);
-}
-
-/* Optional: Active link styling */
-.NavLink a.active {
-  background-color: #00cec9;
-  color: #fff;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .NavLink ul {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .NavLink {
-    padding: 10px 20px;
-  }
-}
-
-.footer-container {
-  background-color: #1e1e2f;
-  color: #ffffff;
-  text-align: center;
-  padding: 20px 0;
-  border-top: 2px solid #00b894;
-  margin-top: 40px;
-}
-
-.footer-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0;
-}
 
 .main-content {
   flex: 1;
-  padding: 40px 60px;
-  background-color: #fff;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+  padding: 20px;
+  z-index: 1;
 }
 
-html, body, #root, .app-wrapper {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+.app-wrapper {
+  position: relative;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
-.product-link-with-img {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  padding: 10px 14px;
-  transition: background-color 0.3s ease;
-  line-height: 1;
+.background-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;         /* <-- KEY */
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+  opacity: 0.12;                  /* light for readability */
+  pointer-events: none;
 }
 
-.product-link-with-img:hover {
-  background-color: #00b894;
-  border-radius: 6px;
-}
 
-.nav-product-img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  display: inline-block;
-  vertical-align: middle;  /* ensures inline alignment with text */
-  margin-bottom: 2px;       /* small tweak to nudge it up */
-}
+
+
+
+
+
+
+

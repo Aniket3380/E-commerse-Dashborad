@@ -25,7 +25,9 @@ const AddProduct = () => {
     let result=await fetch("http://localhost:5000/addproduct",{
         method:'post',
         body:JSON.stringify({name,price,category,company}),
-        headers:{'Content-type':'application/json'}
+        headers:{'Content-type':'application/json',
+          authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+        }
     })
     result=await result.json()
     if(result){

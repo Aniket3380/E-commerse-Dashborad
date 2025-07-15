@@ -6,6 +6,7 @@ const SignUp = () => {
   const[name,setName]=useState()
   const[email,setEmail]=useState()
   const[password,setPassword]=useState()
+  const[err,seterr]=useState(false);
   const navigate=useNavigate()
 
   useEffect(()=>{
@@ -16,14 +17,20 @@ const SignUp = () => {
     }
   })
   const handleSubmit=async()=>{
+    if(!name || !email || !password){
+      seterr(true)
+      return false;
+
+    }
     let result=await fetch('http://localhost:5000/register',{
       method:'post',
       body:JSON.stringify({name,email,password}),
       headers:{'Content-Type':'application/json'}
     })
     result=await result.json()
-    if(result){
-      localStorage.setItem('user', JSON.stringify(result));
+    if(result.acess_token){
+      localStorage.setItem('user', JSON.stringify(result.result));
+      localStorage.setItem('token',JSON.stringify(result.acess_token))
        navigate('/')
       
        
@@ -35,10 +42,22 @@ const SignUp = () => {
       <h1>Sign Up</h1>
       <input type="text" placeholder="Enter your name" className="input-box" value={name}
        onChange={(e)=>setName(e.target.value)}/>
+       {
+        err && !name && 
+        <span>Please Enter Name</span>
+       }
       <input type="text" placeholder="Enter your username" className="input-box" value={email}
       onChange={(e)=>setEmail(e.target.value)}/>
+      {
+        err && !email && 
+        <span>Please Enter Username</span>
+      }
       <input type="password" placeholder="Enter your password" className="input-box" value={password}
      onChange={(e)=>setPassword(e.target.value)} />
+     {
+      err && !password && 
+      <span>Please Enter Password</span>
+     }
       <button className="signup-button" onClick={handleSubmit}>Register</button>
     </div>
   );

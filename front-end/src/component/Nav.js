@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import "../App.css"
-import product from '../component/img/product.png'
+import "./Nav.css"
+
 
 const Nav = () => {
    const auth = localStorage.getItem('user')
@@ -22,7 +22,7 @@ const Nav = () => {
   </Link>
 </li>         
                <li><Link to="/addproduct">Add Product</Link></li>
-               <li><Link to="/update">Update Product</Link></li>
+               <li><Link to="/update/:id">Update Product</Link></li>
                <li><Link to="/profile">Profile</Link></li>
                <li><Link to="/login" onClick={handleSubmit}>Logout</Link> </li>
               

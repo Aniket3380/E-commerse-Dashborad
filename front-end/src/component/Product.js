@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Product.css"
+import { Link } from "react-router-dom";
 
 const Product=()=>{
-    const[data,setData]=useState([])
+    const[product,setProduct]=useState([])
     const[loading,setLoading]=useState(true)
     const[delmsg,setDelMsg]=useState(false);
 useEffect(()=>{
@@ -13,9 +14,13 @@ useEffect(()=>{
 const getData=async()=>{
     setLoading(true)
     try{
-    let result=await fetch('http://localhost:5000/product')
+    let result=await fetch('http://localhost:5000/product',{
+        headers:{
+            authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+        }
+    })
     result=await result.json()
-    setData(result)
+    setProduct(result)
     }
     catch(error)
     {
@@ -26,7 +31,10 @@ const getData=async()=>{
   
 const handleSubmit=async(id)=>{
     let result=await fetch(`http://localhost:5000/product/${id}`,{
-        method:"delete"
+        method:"delete",
+        headers:{
+            authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+        }
     })
      result=await result.json()
      if(result)
@@ -35,17 +43,37 @@ const handleSubmit=async(id)=>{
         setDelMsg(true)
         setTimeout(() => setDelMsg(false), 2000);
 
-     }
+     }  
 }
-    
+    const handleChange=async(e)=>{
+        const key=e.target.value
+        if(key){
+        let result=await fetch(`http://localhost:5000/search/${key}`,{
+            headers:{
+                authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+            }
+        })
+        result=await result.json()
+        if(result)
+        {
+            setProduct(result)
+        }
+        }
+        else{
+            getData();
+        }
+        
+
+    }
    
     return(
         <div className="product-container">
             <h1 className="title">Product List</h1>
+            <input type="text" placeholder="Search Product" onChange={handleChange} className="search-input"/>
 
             {delmsg && <div className="delete-msg">Product deleted successfully.</div>}
             {
-            loading? <div className="loader"></div>: data.length>0 
+            loading? <div className="loader"></div>: product.length>0 
             ? 
             <table className="product-table" >
             <thead>
@@ -59,13 +87,17 @@ const handleSubmit=async(id)=>{
                 </thead>
                 <tbody>
          {
-            data.map((todo,index)=>(
+            product.map((todo,index)=>(
                 <tr key={index._id}>
                 <td>{todo.name}</td>
                 <td>{todo.price}</td>
                 <td>{todo.category}</td>
                 <td>{todo.company}</td>
-                <td><button onClick={()=>handleSubmit(todo._id)}>delete</button></td>
+                <td className="action-buttons">
+                    <button onClick={()=>handleSubmit(todo._id)}>delete</button>
+                    <Link to={`/update/${todo._id}`} className="update-btn">update</Link>
+                    </td>
+              
                 </tr>
             ))
          }
@@ -75,7 +107,7 @@ const handleSubmit=async(id)=>{
          :
 
          <tr>
-             <td>No Data found</td>
+             <td className="no-result">No Result found</td>
          </tr>}
         </div>
     )
