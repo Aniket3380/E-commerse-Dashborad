@@ -1,10 +1,17 @@
 import React from 'react';
+import { useState,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "./Nav.css"
 
 
 const Nav = () => {
    const auth = localStorage.getItem('user')
+   const[role,setRole]=useState(null)
+   useEffect(() => {
+     const storedRole = localStorage.getItem('role');
+     setRole(storedRole);
+   }, [localStorage.getItem('role')])
+   
    const navigate = useNavigate()
 
    const handleSubmit = () => {
@@ -20,11 +27,17 @@ const Nav = () => {
   <Link to="/" >
     <span>Products</span>
   </Link>
-</li>         
-               <li><Link to="/addproduct">Add Product</Link></li>
-               <li><Link to="/update/:id">Update Product</Link></li>
+</li>        
+              <>
+             { role==='admin' &&  <li><Link to="/addproduct">Add Product</Link></li>}
+              { role==='admin' &&<li><Link to="/update/:id">Update Product</Link></li> }
+               </>
+             { role==='customer' &&  <li><Link to="/cart" >Add to cart</Link> </li>}
+             { role==='customer' && <li><Link to="/orders" >My orders</Link> </li>}
                <li><Link to="/profile">Profile</Link></li>
                <li><Link to="/login" onClick={handleSubmit}>Logout</Link> </li>
+               
+              
               
 
 

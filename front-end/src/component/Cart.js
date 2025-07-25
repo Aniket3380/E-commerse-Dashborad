@@ -1,0 +1,81 @@
+import React from "react";
+import { useCart } from "./CartContext";
+import { Link, useNavigate } from "react-router-dom";
+import "./cart.css";
+
+const Cart = () => {
+  const { cart, clearCart, removeFromCart } = useCart();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+  
+
+  const placeOrder = async () => {
+    const orderPayload = {
+      userId: user._id,
+      items: cart.map((item) => ({
+        productId: item._id,
+        name: item.name,
+        price: item.price,
+        discription: item.discription,
+        company: item.company,
+        image: item.image,
+        quantity: item.quantity,
+      })),
+    };
+
+    let result = await fetch("http://localhost:5000/order", {
+      method: "POST",
+      body: JSON.stringify(orderPayload),
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    result = await result.json();
+    if (result._id) {
+      alert("Order placed successfully!");
+      clearCart();
+      navigate("/orders");
+    } else {
+      alert("Order failed!");
+    }
+  };
+
+  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+
+  return (
+    <div className="cart-wrapper">
+      <h2>Your Cart</h2>
+      {cart.length === 0 ? (
+        <p>Cart is empty</p>
+      ) : (
+        <>
+          <div className="cart-items">
+            {cart.map((item) => (
+              <div className="cart-item" key={item._id}>
+                <img src={item.image} alt={item.name} className="cart-img" />
+                <div className="cart-info">
+                  <h4>{item.name}</h4>
+                  <p>₹{item.price} × {item.quantity}</p>
+                  <button className="remove-btn" onClick={() => removeFromCart(item._id)}>Remove From Cart</button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="cart-footer">
+            <Link to="/" className="continue-link">← Continue Shopping</Link>
+            <div className="cart-total">Total: ₹{totalPrice}</div>
+          </div>
+
+          <button onClick={placeOrder} className="place-order-btn">
+            Place Order
+          </button>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Cart;

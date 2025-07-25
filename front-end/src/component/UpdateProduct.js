@@ -6,10 +6,11 @@ const UpdateProduct = (data) => {
 
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
-    const [category, setCategory] = useState("");
+    const [discription, setDiscription] = useState("");
     const [company, setCompany] = useState("");
     const [notFound, setNotFound] = useState(false)
     const [loading, setLoading] = useState(true);
+    const [image, setImage] = useState("");
    
 
     let params = useParams()
@@ -31,7 +32,7 @@ const UpdateProduct = (data) => {
         try {
             let result = await fetch(`http://localhost:5000/product/${params.id}`,{
               headers:{
-                authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+                authorization:`bearer ${(localStorage.getItem('token'))}`
               }
             });
             if (!result.ok) {
@@ -40,8 +41,9 @@ const UpdateProduct = (data) => {
               result = await result.json();
               setName(result.name);
               setPrice(result.price);
-              setCategory(result.category);
+              setDiscription(result.discription);
               setCompany(result.company);
+              setImage(result.image)
             }
           } catch (err) {
             console.error("Error fetching product:", err);
@@ -57,9 +59,9 @@ const UpdateProduct = (data) => {
     const updateProduct = async () => {
         let result = await fetch(`http://localhost:5000/product/${params.id}`, {
             method: 'PUT',
-            body: JSON.stringify({ name, price, category, company }),
+            body: JSON.stringify({ name, price, discription, company,image }),
             headers: { 'Content-Type': 'application/json',
-              authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+              authorization:`bearer ${(localStorage.getItem('token'))}`
              }
         })
         result = await result.json()
@@ -112,9 +114,9 @@ const UpdateProduct = (data) => {
       
       <input
         type="text"
-        placeholder="Enter Product Category"
-        value={category}
-        onChange={(e)=>setCategory(e.target.value)}/>
+        placeholder="Enter Product Discription"
+        value={discription}
+        onChange={(e)=>setDiscription(e.target.value)}/>
     
      
      
@@ -123,6 +125,13 @@ const UpdateProduct = (data) => {
         placeholder="Enter Product Company"
         value={company}
         onChange={(e) => setCompany(e.target.value)}
+      />
+
+<input
+        type="text"
+        placeholder="Enter Image URL"
+        value={image}
+        onChange={(e) => setImage(e.target.value)}
       />
       
       <button onClick={updateProduct}>Update Product</button>    

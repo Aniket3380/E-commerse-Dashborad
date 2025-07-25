@@ -29,9 +29,19 @@ const SignUp = () => {
     })
     result=await result.json()
     if(result.acess_token){
+      const userRole=result.result.role
       localStorage.setItem('user', JSON.stringify(result.result));
-      localStorage.setItem('token',JSON.stringify(result.acess_token))
-       navigate('/')
+      localStorage.setItem('token',result.acess_token)
+      localStorage.setItem('role',userRole)
+      if(userRole==='admin') 
+        {
+          navigate('/addproduct')
+          window.location.reload()
+        }
+      else 
+      {
+        navigate('/')
+      }
       
        
     }

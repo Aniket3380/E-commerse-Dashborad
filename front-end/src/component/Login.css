@@ -1,94 +1,105 @@
-/* Login.css */
 * {
-    box-sizing: border-box;
-  }
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #e3f2fd, #ffffff);
-  }
-  
-  .login-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* full viewport height */
-    width: 100vw;  /* full viewport width */
-    padding: 20px;
-  }
-  
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Container that centers the login form */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Frosted glass style login box */
+.login-container {
+  background: rgba(255, 255, 255, 0.15); /* translucent white */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 360px;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #fff; /* white text to match darkened background */
+  font-weight: 600;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  transition: border 0.2s ease;
+}
+
+.login-container input:focus {
+  border: 2px solid #4a90e2;
+  outline: none;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: #4a90e2;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: #357ac8;
+}
+
+.login-container span {
+  color: #ff4d4d;
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: block;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .login-container {
-    background-color: #ffffff;
-    padding: 40px 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .login-container h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
-    font-weight: 600;
-  }
-  
-  .login-container input {
-    width: 100%;
-    padding: 12px 14px;
-    margin: 12px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: 0.2s;
-  }
-  
-  .login-container input:focus {
-    border-color: #4a90e2;
-    outline: none;
-  }
-  
-  .login-container button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #4a90e2;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .login-container button:hover {
-    background-color: #3b77c1;
+    padding: 30px 20px;
+    max-width: 90%;
   }
 
-  .login-container span {
-    color: red;
+  .login-container h2 {
+    font-size: 20px;
+  }
+
+  .login-container input,
+  .login-container button {
     font-size: 14px;
-    margin-bottom: 10px;
-    display: block;
   }
-  
-  /* Responsive CSS */
-  @media (max-width: 3000spx) {
-    .login-container {
-      padding: 30px 20px;
-    }
-  
-    .login-container h2 {
-      font-size: 20px;
-    }
-  
-    .login-container input,
-    .login-container button {
-      font-size: 15px;
-    }
-  }
-  
+}

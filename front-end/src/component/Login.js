@@ -20,10 +20,19 @@ const Login = () => {
         result=await result.json()
         
       if(result.acess_token){
+        const userRole=result.user.role
        localStorage.setItem('user',JSON.stringify(result.user))
-       localStorage.setItem('token',JSON.stringify(result.acess_token))
+       localStorage.setItem('token',result.acess_token)
+       localStorage.setItem('role',userRole)
        setError(false)
-       navigate('/')
+       if(userRole==="admin") 
+        {
+          navigate('/')
+          window.location.reload()
+        }
+        else
+        { navigate ('/')
+        }
 
       }
       else if (!result.email && !result.password){
@@ -34,7 +43,7 @@ const Login = () => {
       
        
       setTimeout(() => {
-        setError()
+        setError(false)
        
       }, 1500);
 

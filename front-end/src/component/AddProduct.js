@@ -4,42 +4,45 @@ import "./AddProduct.css";
 const AddProduct = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
+  const [discription, setDiscription] = useState("");
   const [company, setCompany] = useState("");
-  const[error,setError]=useState(false)
-  const[adeed,setAdded]=useState(false)
+  const [error, setError] = useState(false)
+  const [adeed, setAdded] = useState(false)
+  const [image, setImage] = useState("");
 
 
-  const handleAdd=async()=>{
+  const handleAdd = async () => {
 
-    if(!name || !price || !category || !company){
-        setError(true)
-        setAdded(false)
-        return false;
+    if (!name || !price || !discription || !company || !image) {
+      setError(true)
+      setAdded(false)
+      return false;
     }
-    else if(name || price || category || company){
-        setAdded(true)
-        setError(false)
+    else if (name || price || discription || company || image) {
+      setAdded(true)
+      setError(false)
 
     }
-    let result=await fetch("http://localhost:5000/addproduct",{
-        method:'post',
-        body:JSON.stringify({name,price,category,company}),
-        headers:{'Content-type':'application/json',
-          authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
-        }
+    let result = await fetch("http://localhost:5000/addproduct", {
+      method: 'post',
+      body: JSON.stringify({ name, price, discription, company ,image}),
+      headers: {
+        'Content-type': 'application/json',
+        authorization: `bearer ${(localStorage.getItem('token'))}`
+      }
     })
-    result=await result.json()
-    if(result){
-      localStorage.setItem('product',JSON.stringify(result))
+    result = await result.json()
+    if (result) {
+      localStorage.setItem('product', JSON.stringify(result))
     }
     setName("");
     setPrice("");
-    setCategory("");
+    setDiscription("");
     setCompany("");
-
+    setImage("")
+  
     setTimeout(() => {
-        setAdded('')
+      setAdded('')  
     }, 1000);
   }
 
@@ -68,12 +71,12 @@ const AddProduct = () => {
       }
       <input
         type="text"
-        placeholder="Enter Product Category"
-        value={category}
-        onChange={(e)=>setCategory(e.target.value)}/>
-    
+        placeholder="Enter Product Discription"
+        value={discription}
+        onChange={(e) => setDiscription(e.target.value)} />
+
       {
-        error && !category &&
+        error && !discription &&
         <span> Please Enter Category</span>
       }
       <input
@@ -85,7 +88,20 @@ const AddProduct = () => {
       {
         error && !company &&
         <span> Please Enter Company </span>
+
       }
+      <input
+        type="text"
+        placeholder="Enter Image URL"
+        value={image}
+        onChange={(e) => setImage(e.target.value)}
+      />
+      {
+        error && !image &&
+        <span> Please Enter Image URL </span>
+      }
+
+
       <button onClick={handleAdd}>Add Product</button>
       {
         adeed && !error &&

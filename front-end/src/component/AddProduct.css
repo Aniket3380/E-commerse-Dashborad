@@ -1,66 +1,98 @@
 .add-product-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.15); /* translucent white */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.add-product-container h2 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.add-product-container input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  transition: border 0.3s ease-in-out;
+}
+
+.add-product-container input:focus {
+  border: 2px solid #00b894;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 184, 148, 0.4);
+}
+
+.add-product-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #00b894;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.add-product-container button:hover {
+  background-color: #019875;
+  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.4);
+}
+
+.loader {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 50px;
+  color: #fff;
+}
+
+.add-product-container span {
+  color: #ff4d4d;
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: block;
+  text-align: center;
+}
+
+.add-product-container p {
+  color:green;
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: block;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .add-product-container {
+    padding: 24px 20px;
+    max-width: 90%;
   }
-  
+
   .add-product-container h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 25px;
-    font-size: 24px;
-  }
-  
-  .add-product-container input {
-    width: 100%;
-    padding: 12px 15px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: 0.3s ease-in-out;
-  }
-  
-  .add-product-container input:focus {
-    border-color: #00b894;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 184, 148, 0.4);
-  }
-  
-  .add-product-container button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    background-color: #00b894;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-  }
-  .loader {
     font-size: 20px;
-    text-align: center;
-    margin-top: 50px;
   }
-  
-  .add-product-container button:hover {
-    background-color: #019875;
-    box-shadow: 0 4px 12px rgba(0, 184, 148, 0.4);
-  }
-  .add-product-container span {
-    color: red;
+
+  .add-product-container input,
+  .add-product-container button {
     font-size: 14px;
-    margin-bottom: 10px;
-    display: block;
   }
-  .add-product-container p {
-    color:green;
-    font-size: 14px;
-    margin-bottom: 10px;
-    display: block;
-  }
+}

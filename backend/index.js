@@ -4,14 +4,18 @@ const app = express()
 require('./Db/config')
 const User = require('./Db/User')
 const Product = require('./Db/Product')
+const Order=require('./Db/Orders')
 const jwt = require('jsonwebtoken')
 const jwtkey = 'e-com'
+
 
 app.use(express.json())
 app.use(cors())
 
 app.post('/register', async (req, resp) => {
-    const data = new User(req.body)
+    const{name,email,password}=req.body
+    const role=(email==="admin@gmail.com")? 'admin' : 'customer'
+    const data = new User({name,email,password,role})
     let result = await data.save()
     result = result.toObject()
     delete result.password
@@ -48,7 +52,7 @@ app.post('/login', async (req, resp) => {
 
 })
 
-app.post('/addproduct',verifyToken, async (req, resp) => {
+app.post('/addproduct',verifyToken, isAdmin,async (req, resp) => {
     const result = new Product(req.body)
     const data = await result.save();
     resp.send(data)
@@ -94,10 +98,42 @@ app.put('/product/:id', verifyToken,async (req, resp) => {
 app.get('/search/:key', verifyToken, async (req, resp) => {
     const result = await Product.find({
         "$or": [
-            { name: { $regex: req.params.key } }
+            { name: { $regex: req.params.key }  },
+            // {price:{$regex:req.params.key}},
+            {discription:{$regex:req.params.key}},
+            {company:{$regex:req.params.key}},
+            // {image:{$regex:req.params.key}}
         ]
     })
     resp.send(result)
+})
+
+app.post('/order',verifyToken,async(req,resp)=>{
+    const{userId,items}=req.body;
+    if(!items || items.length===0){
+        resp.status(400).send({messege:"cart is empty"})
+    }
+    try{
+    const data=new Order({userId,items})
+    const result=await data.save()
+    resp.send(result)
+    }
+    catch(error){
+        console.log(error)
+        resp.status(500).send({messege:"failed to place the order"})
+    }
+    
+})
+
+app.get('/order/:id',verifyToken,async(req,resp)=>{
+    try{
+        const orders=await Order.find({userId:req.params.id}).populate('items.productId')
+        resp.send(orders)
+
+    }
+    catch(error){
+            resp.status(500).send({message:"error fetching orders"})
+    }
 })
 
 function verifyToken(req, resp, next) {
@@ -122,5 +158,25 @@ function verifyToken(req, resp, next) {
 
 
 }
+
+function isAdmin(req,resp,next){
+    let token=req.headers['authorization']
+    if(token ){
+        token=token.split(' ')[1]
+        jwt.verify(token,jwtkey,(err,decoded)=>{
+            const role=decoded.user?.role || decoded.result?.role
+            if(role !=='admin'){
+                resp.status(403).send("Acess denied")
+            }
+            next();
+
+        })
+
+    }
+    else{
+        resp.status(403).send("please provide token in headers")
+    }
+}
+
 
 app.listen(5000)
