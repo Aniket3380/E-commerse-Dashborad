@@ -16,7 +16,7 @@ const ProductDetails = () => {
     try {
       let result = await fetch(`http://localhost:5000/product/${id}`, {
         headers: {
-          authorization: `bearer ${(localStorage.getItem("token"))}`,
+          authorization: `bearer ${JSON.parse((localStorage.getItem("token")))}`,
         },
       });
       result = await result.json();

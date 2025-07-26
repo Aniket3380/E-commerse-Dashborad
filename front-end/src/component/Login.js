@@ -21,9 +21,10 @@ const Login = () => {
         
       if(result.acess_token){
         const userRole=result.user.role
+        console.log(userRole)
        localStorage.setItem('user',JSON.stringify(result.user))
-       localStorage.setItem('token',result.acess_token)
-       localStorage.setItem('role',userRole)
+       localStorage.setItem('token',JSON.stringify(result.acess_token))
+       localStorage.setItem('role',JSON.stringify(userRole))
        setError(false)
        if(userRole==="admin") 
         {
@@ -32,6 +33,7 @@ const Login = () => {
         }
         else
         { navigate ('/')
+           window.location.reload()
         }
 
       }

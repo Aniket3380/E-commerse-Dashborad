@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import {useCart} from "./CartContext"
 
 const Product = () => {
-  const role = localStorage.getItem("role");
+  const role = JSON.parse(localStorage.getItem("role"));
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   const [delmsg, setDelMsg] = useState(false);
@@ -20,7 +20,7 @@ const Product = () => {
     try {
       let result = await fetch("http://localhost:5000/product", {
         headers: {
-          authorization: `bearer ${(localStorage.getItem("token"))}`,
+          authorization: `bearer ${JSON.parse((localStorage.getItem("token")))}`,
         },
       });
       result = await result.json();
@@ -35,7 +35,7 @@ const Product = () => {
     let result = await fetch(`http://localhost:5000/product/${id}`, {
       method: "delete",
       headers: {
-        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        authorization: `bearer ${JSON.parse((localStorage.getItem("token")))}`,
       },
     });
     result = await result.json();
@@ -51,7 +51,7 @@ const Product = () => {
     if (key) {
       let result = await fetch(`http://localhost:5000/search/${key}`, {
         headers: {
-          authorization: `bearer ${(localStorage.getItem("token"))}`,
+          authorization: `bearer ${JSON.parse((localStorage.getItem("token")))}`,
         },
       });
       result = await result.json();
@@ -72,7 +72,7 @@ const Product = () => {
 
   return (
     <div className="product-page-wrapper">
-      <h1 className="title">Products</h1>
+      <h1>Products</h1>
       <input
         type="text"
         placeholder="Search Product"

@@ -71,7 +71,7 @@ app.get('/product',verifyToken, async (req, resp) => {
 
 })
 
-app.delete('/product/:id',verifyToken, async (req, resp) => {
+app.delete('/product/:id',verifyToken,isAdmin, async (req, resp) => {
     const result = await Product.deleteOne({ _id: req.params.id })
     resp.send(result)
 })

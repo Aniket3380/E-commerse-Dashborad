@@ -13,15 +13,23 @@ import { useEffect ,useState} from "react";
 import ProductDetails from "./component/ProductDetails";
 import Cart from "./component/Cart";
 import MyOrders from "./component/MyOrders";
+import PageNotFound from "./component/PageNotFound"
 
 
 
 function App() {
   const[role,setRole]=useState(null)
   useEffect(() => {
-    const storedRole = localStorage.getItem('role');
+    const storedRole = JSON.parse(localStorage.getItem('role'));
     setRole(storedRole);
-  }, [localStorage.getItem('role')])
+    console.log(storedRole)
+    
+  },[JSON.parse(localStorage.getItem('role'))])
+  
+  // if(role===null)
+  //   {
+  //     return null
+  //   }
  
   return (
     <div className='app-wrapper'>     
@@ -37,13 +45,13 @@ function App() {
   { role==='admin' && <Route path='/addproduct' element={<AddProduct/>}/> }
     { role==='admin' && <Route path='/update/:id' element={<UpdateProduct/>}/> }
       <Route path='/profile' element={<h1>Profile</h1>}/>
-      <Route path='/' element={<h1>Logout</h1>}/>
      {role==='customer' && <Route path="/cart" element={<Cart/>}/> }
      {role==='customer' && <Route path="/orders" element={<MyOrders/>}/>}
      
       </Route>
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/login' element={<Login/>}/>
+      <Route path="*" element={<PageNotFound/>}/>
     </Routes>
    
     </main>

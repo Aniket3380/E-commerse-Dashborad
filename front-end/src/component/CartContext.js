@@ -9,6 +9,7 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     console.log("Product added:", product);
+    console.log(cart)
     setCart((prev) => {
       const existing = prev.find((item) => item._id === product._id);
       if (existing) {

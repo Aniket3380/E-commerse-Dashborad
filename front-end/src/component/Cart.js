@@ -5,6 +5,7 @@ import "./cart.css";
 
 const Cart = () => {
   const { cart, clearCart, removeFromCart } = useCart();
+  console.log(cart)
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   
@@ -28,7 +29,7 @@ const Cart = () => {
       body: JSON.stringify(orderPayload),
       headers: {
         "Content-Type": "application/json",
-        authorization: `bearer ${localStorage.getItem("token")}`,
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
     });
 

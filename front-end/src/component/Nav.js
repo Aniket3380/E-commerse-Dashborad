@@ -5,18 +5,25 @@ import "./Nav.css"
 
 
 const Nav = () => {
-   const auth = localStorage.getItem('user')
+   const auth = JSON.parse(localStorage.getItem('user'))
    const[role,setRole]=useState(null)
    useEffect(() => {
-     const storedRole = localStorage.getItem('role');
+     const storedRole = JSON.parse(localStorage.getItem('role'));
      setRole(storedRole);
-   }, [localStorage.getItem('role')])
+    
+   },[JSON.parse(localStorage.getItem('role'))])
+   
    
    const navigate = useNavigate()
 
+   //  if(role===null)
+   //    {
+   //    return null;
+   //   }
+
    const handleSubmit = () => {
       localStorage.clear()
-      navigate('/signup')
+      navigate('/login')
    }
 
    return (

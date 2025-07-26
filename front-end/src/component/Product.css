@@ -4,6 +4,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: transparent;
   min-height: 100vh;
+  
 }
 
 .title {
@@ -238,4 +239,19 @@
 /* Hover effect */
 .add-to-cart-btn:hover {
   background-color: #e6594f;
+}
+
+.product-page-wrapper h1 {
+  font-size: 36px;
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 30px;
+  padding: 12px 24px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  text-align: center;
 }

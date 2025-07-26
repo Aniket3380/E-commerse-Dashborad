@@ -1,0 +1,61 @@
+.order-card {
+  background: rgba(255, 255, 255, 0.1); /* translucent white */
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 25px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.order-card h3,
+.order-card p,
+.order-card li {
+  color: #fff;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.order-item img {
+  border-radius: 8px;
+}
+
+.item-details p {
+  margin: 0;
+  font-size: 16px;
+  color: #f0f0f0;
+}
+
+.order-total {
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 10px;
+}
+.orders-wrapper {
+  padding: 40px;
+  min-height: 100vh;
+  
+}
+
+.orders-wrapper h2 {
+  font-size: 32px;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}

@@ -10,7 +10,7 @@ const SignUp = () => {
   const navigate=useNavigate()
 
   useEffect(()=>{
-    const auth=localStorage.getItem('user')
+    const auth=JSON.parse(localStorage.getItem('user'))
     if(auth)
     {
       navigate('/')
@@ -31,16 +31,17 @@ const SignUp = () => {
     if(result.acess_token){
       const userRole=result.result.role
       localStorage.setItem('user', JSON.stringify(result.result));
-      localStorage.setItem('token',result.acess_token)
-      localStorage.setItem('role',userRole)
+      localStorage.setItem('token',JSON.stringify(result.acess_token))
+      localStorage.setItem('role',JSON.stringify(userRole))
       if(userRole==='admin') 
         {
-          navigate('/addproduct')
+          navigate('/')
           window.location.reload()
         }
       else 
       {
         navigate('/')
+         window.location.reload()
       }
       
        
