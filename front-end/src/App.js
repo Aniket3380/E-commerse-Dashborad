@@ -13,7 +13,8 @@ import { useEffect ,useState} from "react";
 import ProductDetails from "./component/ProductDetails";
 import Cart from "./component/Cart";
 import MyOrders from "./component/MyOrders";
-import PageNotFound from "./component/PageNotFound"
+import PageNotFound from "./component/PageNotFound";
+import Profile from './component/Profile'
 
 
 
@@ -44,7 +45,7 @@ function App() {
       <Route path="/product/:id" element={<ProductDetails />} />
   { role==='admin' && <Route path='/addproduct' element={<AddProduct/>}/> }
     { role==='admin' && <Route path='/update/:id' element={<UpdateProduct/>}/> }
-      <Route path='/profile' element={<h1>Profile</h1>}/>
+      <Route path='/profile' element={<Profile/>}/>
      {role==='customer' && <Route path="/cart" element={<Cart/>}/> }
      {role==='customer' && <Route path="/orders" element={<MyOrders/>}/>}
      

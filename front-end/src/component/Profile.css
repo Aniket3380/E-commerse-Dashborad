@@ -1,0 +1,59 @@
+/* Profile.css */
+
+.profile-container {
+  /* background: url('/images/bg.jpg') no-repeat center center fixed; */
+  background-size: cover;
+  min-height: 100vh;
+  padding: 50px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  color: #fff; /* white text */
+}
+
+.profile-card h2 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  font-weight: bold;
+  color: #ffffff; /* bright white heading */
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.profile-info p {
+  margin: 0;
+  font-size: 17px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  padding-bottom: 8px;
+  color: #eaeaea; /* soft white for details */
+}
+
+.profile-info span {
+  font-weight: bold;
+  color: #ffffff; /* label text: bright white */
+}
+
+.profile-card,
+.profile-info p,
+.profile-info span {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
