@@ -62,6 +62,7 @@ const AddProduct = () => {
       <input
         type="number"
         placeholder="Enter Product Price"
+        min="0"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
