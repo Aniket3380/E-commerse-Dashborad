@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import "./cart.css";
 
 const Cart = () => {
-  const { cart, clearCart, removeFromCart } = useCart();
+  const { cart, clearCart, removeFromCart, updateQuntity } = useCart();
   console.log(cart)
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-  
+
 
   const placeOrder = async () => {
     const orderPayload = {
@@ -43,7 +43,9 @@ const Cart = () => {
     }
   };
 
-  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalPrice = Array.isArray(cart)
+    ? cart.reduce((total, item) => total + item.price * item.quantity, 0)
+    : 0;
 
   return (
     <div className="cart-wrapper">
@@ -58,7 +60,22 @@ const Cart = () => {
                 <img src={item.image} alt={item.name} className="cart-img" />
                 <div className="cart-info">
                   <h4>{item.name}</h4>
-                  <p>₹{item.price} × {item.quantity}</p>
+                  <div className="quantity-control">
+                    <button
+                      onClick={() => updateQuntity(item._id, item.quantity - 1)}
+                      disabled={item.quantity <= 1}
+                    >
+                      −
+                    </button>
+                    <span className="quantity-number">{item.quantity}</span>
+                    <button
+                      onClick={() => updateQuntity(item._id, item.quantity + 1)}
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <p>Price: ₹{item.price} × {item.quantity} = ₹{item.price * item.quantity}</p>
                   <button className="remove-btn" onClick={() => removeFromCart(item._id)}>Remove From Cart</button>
                 </div>
               </div>

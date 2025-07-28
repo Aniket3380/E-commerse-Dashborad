@@ -170,4 +170,42 @@
       opacity: 0;
     }
   }
-  
+  .quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.quantity-control button {
+  padding: 6px 14px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.25s, transform 0.15s;
+  min-width: 40px;
+}
+
+.quantity-control button:hover {
+  background-color: #f7f7f7;
+  transform: scale(1.05);
+}
+
+.quantity-control button:disabled {
+  color: #aaa;
+  border-color: #eee;
+  cursor: not-allowed;
+  background-color: #f9f9f9;
+  transform: none;
+}
+
+.quantity-control .quantity-number {
+  font-size: 18px;
+  font-weight: 500;
+  min-width: 28px;
+  text-align: center;
+}

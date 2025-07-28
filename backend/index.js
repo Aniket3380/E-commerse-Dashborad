@@ -136,6 +136,20 @@ app.get('/order/:id',verifyToken,async(req,resp)=>{
     }
 })
 
+app.put('/order/cancel/:id',verifyToken,async(req,resp)=>{
+    const orderId=req.params.id;
+    const result=await Order.findByIdAndUpdate(
+        orderId,
+        {$set:{status:"cancelled"}},
+        {new:true}
+
+    )
+    if(!result){
+        return resp.send({meseege:"order not found"})
+    }
+    resp.send({meseege:"order cancelled sucessfully",order:result})
+})
+
 function verifyToken(req, resp, next) {
     let token = req.headers['authorization']
     console.log("matched", token)

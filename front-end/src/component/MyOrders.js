@@ -26,11 +26,39 @@ const MyOrders = () => {
     fetchData()
 
   }, [user._id])
+
+
+  const handleCancel=async(order_id)=>{
+     const confirm=window.confirm("Are you sure you want to cancel this order?")
+     if(!confirm) return;
+     console.log(order_id)
+      let res=await fetch(`http://localhost:5000/order/cancel/${order_id}`,{
+        method:'put',
+        headers:{
+          'Content-Type':'application/json',
+          Authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
+        }
+      })
+      const result=await res.json()
+      if(res.ok){
+          setOrders((prevOrder)=>
+                prevOrder.map((order)=>
+                order._id===order_id ? {...order,status:'cancelled'}:order)
+          )
+      }
+      else{
+        alert(result.message || "failed to cancel the order")
+      }
+          
+     }
+     
+  
+  
   return (
     <div className="orders-wrapper">
       <h2>My Orders</h2>
       {orders.length === 0 ? (
-        <p>You haven't placed any orders yet.</p>
+        <p className="no-orders-message">You haven't placed any orders yet.</p>
       ) : (
         orders.map((order, index) => (
           <div key={index} className="order-card">
@@ -46,6 +74,16 @@ const MyOrders = () => {
                 </li>
               ))}
             </ul>
+            {
+              order.status !=="cancelled" ?
+              <button
+              className="cancel-btn"
+              onClick={()=>handleCancel(order._id)}
+              >
+               Cancel Order
+              </button>:
+              <p className="cancelled-status">order cancelled</p>
+            }
             <p className="order-total">Total: ₹{order.items.reduce((acc, item) => acc + item.price * item.quantity, 0)}</p>
             <hr />
           </div>

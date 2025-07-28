@@ -13,6 +13,11 @@ const orderSchema=mongoose.Schema({
       quantity: { type: Number, default: 1 },
     },
   ],
+  status:{
+    type:String,
+    enum:['placed','cancelled'],
+    default:'placed'
+  },
   createdAt: { type: Date, default: Date.now }
 })
 
