@@ -6,7 +6,7 @@ const User = require('./Db/User')
 const Product = require('./Db/Product')
 const Order=require('./Db/Orders')
 const jwt = require('jsonwebtoken')
-const jwtkey = 'e-com'
+const jwtkey =process.env.jwtkey || 'e-com'
 
 
 app.use(express.json())
@@ -35,7 +35,7 @@ app.post('/login', async (req, resp) => {
             jwt.sign({ user }, jwtkey, { expiresIn: '2h' }, (err, token) => {
                 if (err) {
                     resp.send("something went wrong please try again")
-                }
+        }
                 resp.send({ user, acess_token: token })
             })
 
@@ -133,41 +133,41 @@ app.get('/order/:id',verifyToken,async(req,resp)=>{
     }
     catch(error){
             resp.status(500).send({message:"error fetching orders"})
-    }
+  }
 })
 
 app.put('/order/cancel/:id',verifyToken,async(req,resp)=>{
     const orderId=req.params.id;
     const result=await Order.findByIdAndUpdate(
-        orderId,
+    orderId,
         {$set:{status:"cancelled"}},
         {new:true}
 
     )
     if(!result){
         return resp.send({meseege:"order not found"})
-    }
+  }
     resp.send({meseege:"order cancelled sucessfully",order:result})
 })
 
 function verifyToken(req, resp, next) {
     let token = req.headers['authorization']
     console.log("matched", token)
-    if (token) {
+  if (token) {
         token = token.split(' ')[1]  //splitting into next line 
-        jwt.verify(token, jwtkey, (err, valid) => {
-            if (err) {
+    jwt.verify(token, jwtkey, (err, valid) => {
+      if (err) {
                 resp.status(401).send({ result: "please provide valid result" })
             }
             else {
                 next()
-            }
+      }
         })
 
     }
     else {
         resp.status(403).send({ result: "Please add token with header" })
-    }
+  }
 
 
 
@@ -181,16 +181,16 @@ function isAdmin(req,resp,next){
             const role=decoded.user?.role || decoded.result?.role
             if(role !=='admin'){
                 resp.status(403).send("Acess denied")
-            }
-            next();
+      }
+      next();
 
         })
 
     }
     else{
         resp.status(403).send("please provide token in headers")
-    }
+  }
 }
 
-
-app.listen(5000)
+const PORT = process.env.PORT || 5000;
+ app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`)); 
