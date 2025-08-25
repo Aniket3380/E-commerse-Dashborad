@@ -2,6 +2,7 @@ import React from "react";
 import { useCart } from "./CartContext";
 import { Link, useNavigate } from "react-router-dom";
 import "./cart.css";
+import API_BASE_URL from "../config";
 
 const Cart = () => {
   const { cart, clearCart, removeFromCart, updateQuntity } = useCart();
@@ -24,7 +25,7 @@ const Cart = () => {
       })),
     };
 
-    let result = await fetch("http://localhost:5000/order", {
+    let result = await fetch(`${API_BASE_URL}/order`, {
       method: "POST",
       body: JSON.stringify(orderPayload),
       headers: {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./SignUp.css"; 
 import { useNavigate} from 'react-router-dom'
+import API_BASE_URL from "../config";
 
 const SignUp = () => {
   const[name,setName]=useState()
@@ -22,7 +23,7 @@ const SignUp = () => {
       return false;
 
     }
-    let result=await fetch('http://localhost:5000/register',{
+    let result=await fetch(`${API_BASE_URL}/register`,{
       method:'post',
       body:JSON.stringify({name,email,password}),
       headers:{'Content-Type':'application/json'}

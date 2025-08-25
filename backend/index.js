@@ -29,28 +29,35 @@ app.post('/register', async (req, resp) => {
 
 })
 app.post('/login', async (req, resp) => {
-    if (req.body.email && req.body.password) {
-        let user = await User.findOne(req.body).select("-password")
+    const { email, password } = req.body;
+
+    if (email && password) {
+        // Find user by email only
+        let user = await User.findOne({ email });
+
         if (user) {
-            jwt.sign({ user }, jwtkey, { expiresIn: '2h' }, (err, token) => {
-                if (err) {
-                    resp.send("something went wrong please try again")
-        }
-                resp.send({ user, acess_token: token })
-            })
+            // Compare plain text passwords (later you should use bcrypt)
+            if (user.password === password) {
+                const userObj = user.toObject();
+                delete userObj.password;
 
-
+                jwt.sign({ user: userObj }, jwtkey, { expiresIn: '2h' }, (err, token) => {
+                    if (err) {
+                        return resp.status(500).send("something went wrong please try again");
+                    }
+                    resp.send({ user: userObj, acess_token: token });
+                });
+            } else {
+                resp.status(401).send({ result: "Invalid password" });
+            }
+        } else {
+            resp.status(404).send({ result: "User not found" });
         }
-        else {
-            resp.send({ result: "user not found" })
-        }
+    } else {
+        resp.status(400).send({ result: "Provide proper email and password" });
     }
-    else {
-        resp.send({ result: "Provide proper email and password" })
-    }
+});
 
-
-})
 
 app.post('/addproduct',verifyToken, isAdmin,async (req, resp) => {
     const result = new Product(req.body)

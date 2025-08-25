@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./AddProduct.css";
+import API_BASE_URL from "../config";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -23,7 +24,7 @@ const AddProduct = () => {
       setError(false)
 
     }
-    let result = await fetch("http://localhost:5000/addproduct", {
+    let result = await fetch(`${API_BASE_URL}/addproduct`, {
       method: 'post',
       body: JSON.stringify({ name, price, discription, company ,image}),
       headers: {

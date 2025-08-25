@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./AddProduct.css"
 import { useNavigate, useParams } from "react-router-dom";
+import API_BASE_URL from "../config";
 
 const UpdateProduct = (data) => {
 
@@ -30,7 +31,7 @@ const UpdateProduct = (data) => {
     const getProductDetails = async () => {
         setLoading(true);
         try {
-            let result = await fetch(`http://localhost:5000/product/${params.id}`,{
+            let result = await fetch(`${API_BASE_URL}/product/${params.id}`,{
               headers:{
                 authorization:`bearer ${JSON.parse((localStorage.getItem('token')))}`
               }
@@ -57,7 +58,7 @@ const UpdateProduct = (data) => {
     
 
     const updateProduct = async () => {
-        let result = await fetch(`http://localhost:5000/product/${params.id}`, {
+        let result = await fetch(`${API_BASE_URL}/product/${params.id}`, {
             method: 'PUT',
             body: JSON.stringify({ name, price, discription, company,image }),
             headers: { 'Content-Type': 'application/json',

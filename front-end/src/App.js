@@ -23,7 +23,6 @@ function App() {
   useEffect(() => {
     const storedRole = JSON.parse(localStorage.getItem('role'));
     setRole(storedRole);
-    console.log(storedRole)
     
   },[JSON.parse(localStorage.getItem('role'))])
   

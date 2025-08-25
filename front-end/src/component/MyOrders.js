@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import "./Myorder.css"
+import API_BASE_URL from "../config"
 
 const MyOrders = () => {
   const user = JSON.parse(localStorage.getItem('user'))
@@ -9,7 +10,7 @@ const MyOrders = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch(`http://localhost:5000/order/${user._id}`, {
+      const result = await fetch(`${API_BASE_URL}/order/${user._id}`, {
 
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +33,7 @@ const MyOrders = () => {
      const confirm=window.confirm("Are you sure you want to cancel this order?")
      if(!confirm) return;
      console.log(order_id)
-      let res=await fetch(`http://localhost:5000/order/cancel/${order_id}`,{
+      let res=await fetch(`${API_BASE_URL}/order/cancel/${order_id}`,{
         method:'put',
         headers:{
           'Content-Type':'application/json',

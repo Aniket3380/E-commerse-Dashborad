@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Product.css";
 import { Link } from "react-router-dom";
-import {useCart} from "./CartContext"
+import {useCart} from "./CartContext";
+import API_BASE_URL from "../config";
 
 const Product = () => {
   const role = JSON.parse(localStorage.getItem("role"));
@@ -18,7 +19,7 @@ const Product = () => {
   const getData = async () => {
     setLoading(true);
     try {
-      let result = await fetch("http://localhost:5000/product", {
+      let result = await fetch(`${API_BASE_URL}/product`, {
         headers: {
           authorization: `bearer ${JSON.parse((localStorage.getItem("token")))}`,
         },
@@ -32,7 +33,7 @@ const Product = () => {
   };
 
   const handleSubmit = async (id) => {
-    let result = await fetch(`http://localhost:5000/product/${id}`, {
+    let result = await fetch(`${API_BASE_URL}/product/${id}`, {
       method: "delete",
       headers: {
         authorization: `bearer ${JSON.parse((localStorage.getItem("token")))}`,
@@ -49,7 +50,7 @@ const Product = () => {
   const handleChange = async (e) => {
     const key = e.target.value;
     if (key) {
-      let result = await fetch(`http://localhost:5000/search/${key}`, {
+      let result = await fetch(`${API_BASE_URL}/search/${key}`, {
         headers: {
           authorization: `bearer ${JSON.parse((localStorage.getItem("token")))}`,
         },

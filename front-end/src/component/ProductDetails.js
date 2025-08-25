@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./ProductDetails.css"; // optional: for custom styling
+import API_BASE_URL from "../config";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const ProductDetails = () => {
 
   const getProduct = async () => {
     try {
-      let result = await fetch(`http://localhost:5000/product/${id}`, {
+      let result = await fetch(`${API_BASE_URL}/product/${id}`, {
         headers: {
           authorization: `bearer ${JSON.parse((localStorage.getItem("token")))}`,
         },

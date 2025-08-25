@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config';
+console.log("API_BASE_URL 👉", API_BASE_URL);
 
 const Login = () => {
     const[email,setEmail]=useState()
@@ -12,7 +14,7 @@ const Login = () => {
 
     const handleSubmit=async ()=>{
       
-        let result=await fetch("http://localhost:5000/login",{
+        let result=await fetch(`${API_BASE_URL}/login`,{
             method:"post",
             body:JSON.stringify({email,password}),
             headers:{'Content-type':'application/json'}
@@ -21,7 +23,6 @@ const Login = () => {
         
       if(result.acess_token){
         const userRole=result.user.role
-        console.log(userRole)
        localStorage.setItem('user',JSON.stringify(result.user))
        localStorage.setItem('token',JSON.stringify(result.acess_token))
        localStorage.setItem('role',JSON.stringify(userRole))
