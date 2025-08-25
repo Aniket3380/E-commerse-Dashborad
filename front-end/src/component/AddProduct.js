@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./AddProduct.css";
 import API_BASE_URL from "../config";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -10,6 +11,7 @@ const AddProduct = () => {
   const [error, setError] = useState(false)
   const [adeed, setAdded] = useState(false)
   const [image, setImage] = useState("");
+  const navigate=useNavigate()
 
 
   const handleAdd = async () => {
@@ -41,6 +43,7 @@ const AddProduct = () => {
     setDiscription("");
     setCompany("");
     setImage("")
+    navigate("/")
   
     setTimeout(() => {
       setAdded('')  
