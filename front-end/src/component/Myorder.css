@@ -113,3 +113,94 @@
 }
 
 
+@media screen and (max-width: 768px) {
+  .orders-wrapper {
+    padding: 20px;
+  }
+
+  .orders-wrapper h2 {
+    font-size: 24px;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+  }
+
+  .order-card {
+    padding: 15px;
+    border-radius: 16px;
+  }
+
+  .order-card h3 {
+    font-size: 16px;
+    word-break: break-all; /* Prevents long Order ID overflow */
+  }
+
+  .order-card p {
+    font-size: 14px;
+  }
+
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .order-item img {
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+  }
+
+  .item-details p {
+    font-size: 14px;
+  }
+
+  .cancel-btn {
+    padding: 8px 14px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .order-total {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .orders-wrapper {
+    padding: 10px;
+  }
+
+  .orders-wrapper h2 {
+    font-size: 20px;
+  }
+
+  .order-card {
+    padding: 12px;
+  }
+
+  .order-card h3 {
+    font-size: 14px;
+  }
+
+  .order-card p {
+    font-size: 13px;
+  }
+
+  .item-details p {
+    font-size: 13px;
+  }
+
+  .cancel-btn {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .order-total {
+    font-size: 14px;
+  }
+
+  .no-orders-message {
+    font-size: 1rem;
+    padding: 15px 20px;
+  }
+}

@@ -86,4 +86,71 @@
   .update-btn:hover {
     background-color: #e0a800;
   }
-  
+  @media screen and (max-width: 768px) {
+  .product-details-wrapper {
+    padding: 1rem;
+  }
+
+  .product-details-card {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .product-details-img-box {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+  }
+
+  .product-details-img-box img,
+  .product-details-img-box-non {
+    width: 100%;
+    height: 100%;
+  }
+
+  .details-content h2 {
+    font-size: 20px;
+  }
+
+  .details-content p {
+    font-size: 15px;
+  }
+
+  .details-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .details-buttons .view-btn,
+  .details-buttons .update-btn {
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    padding: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .product-details-wrapper {
+    padding: 0.8rem;
+  }
+
+  .product-details-card {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .details-content h2 {
+    font-size: 18px;
+  }
+
+  .details-content p {
+    font-size: 14px;
+  }
+
+  .details-buttons .view-btn,
+  .details-buttons .update-btn {
+    font-size: 14px;
+  }
+}
